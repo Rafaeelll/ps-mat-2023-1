@@ -22,4 +22,25 @@ controller.create = async (req, res) =>{
         console.error(error)
     }
 }
+controller.retrieve = async (req, res)=>{
+    try{
+        const data = await User.findAll()
+        res.send(data)
+
+    }
+    catch(error){
+        console.error(error)
+    }
+}
+controller.retrieveOne = async (req, res)=>{
+    try{
+        const data = await User.findByPk(req.params.id)
+        if(data) res.send(data)
+        
+        else res.status(404).end()
+    }
+    catch(error){
+        console.error(error)
+    }
+}
 module.exports = controller

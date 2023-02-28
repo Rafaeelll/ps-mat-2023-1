@@ -9,9 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
-      },
       name: {
         type: Sequelize.STRING(100)
       },
@@ -30,11 +27,11 @@ module.exports = {
       password: {
         type: Sequelize.STRING(200)
       },
-      create_at: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      update_at: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
