@@ -1,2 +1,7 @@
 // Gerar model + migration
- npx sequelize-cli module:generate --name User --attributes id:integer,name:string,email:string,verified_email:boolean,is_admin:boolean,phone:string,password:string
+ npx sequelize-cli model:generate --name User --attributes id:integer,name:string,email:string,verified_email:boolean,
+ is_admin:boolean,phone:string,password:string
+
+npx sequelize-cli model:generate --name Channel --attributes id:integer,description:string,commission_fee:decimal
+npx sequelize-cli db:migrate
+npx sequelize-cli db:migrate undo
