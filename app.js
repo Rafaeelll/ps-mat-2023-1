@@ -37,7 +37,44 @@ app.use('/users', users)
 const channels = require('./routes/channels')
 app.use('/channels', channels)
 
-const payamentMethods = require('./routes/payament_methods')
-app.use('/payament_methods', payamentMethods)
+const paymentMethods = require('./routes/payment_methods')
+app.use('/payment_methods', paymentMethods)
 
+const carriers = require('./routes/carriers')
+app.use('/carriers', carriers)
+
+const shipmentPriority = require('./routes/shipment_priorities')
+app.use('/shipment_priorities', shipmentPriority)
+module.exports = app;
+
+const orderTag = require('./routes/order_tags')
+app.use('/order_tags', orderTag)
+module.exports = app;
+
+const orderRelStatus = require('./routes/order_rel_statuses')
+app.use('/order_rel_statuses', orderRelStatus)
+module.exports = app;
+
+const customers = require('./routes/customers')
+app.use('/customers', customers)
+module.exports = app;
+
+const customerTags = require('./routes/customer_tags')
+app.use('/customer_tags', customerTags)
+module.exports = app;
+
+const cities = require('./routes/cities')
+app.use('/cities', cities)
+module.exports = app;
+
+const tags = require('./routes/tags')
+app.use('/tags', tags)
+module.exports = app;
+
+const orderStatus = require('./routes/order_statuses')
+app.use('/order_status', orderStatus)
+module.exports = app;
+
+const orders = require('./routes/orders')
+app.use('/orders', orders)
 module.exports = app;

@@ -1,5 +1,5 @@
 // importar o model correspondente ao controller
-const {PayamentMethod} = require('../models')
+const {OrderRelStatus} = require('../models')
 
 const controller = {} // objeto vazio
 
@@ -14,7 +14,7 @@ const controller = {} // objeto vazio
 
 controller.create = async (req, res) =>{
     try{
-        await PayamentMethod.create(req.body)
+        await OrderRelStatus.create(req.body)
         // HTTP 201: Created
         res.status(201).end()
     }
@@ -24,7 +24,7 @@ controller.create = async (req, res) =>{
 }
 controller.retrieve = async (req, res)=>{
     try{
-        const data = await PayamentMethod.findAll()
+        const data = await OrderRelStatus.findAll()
         res.send(data)
 
     }
@@ -34,7 +34,7 @@ controller.retrieve = async (req, res)=>{
 }
 controller.retrieveOne = async (req, res)=>{
     try{
-        const data = await PayamentMethod.findByPk(req.params.id)
+        const data = await OrderRelStatus.findByPk(req.params.id)
         if(data) res.send(data)
         
         else res.status(404).end()
@@ -45,7 +45,7 @@ controller.retrieveOne = async (req, res)=>{
 }
 controller.update = async(req, res) =>{
     try{
-        const response = await PayamentMethod.update(
+        const response = await OrderRelStatus.update(
             req.body,
             {where: {id: req.params.id}}
         )
@@ -67,7 +67,7 @@ controller.update = async(req, res) =>{
 }
 controller.delete = async (req, res) =>{
     try{
-        const response = await PayamentMethod.destroy(
+        const response = await OrderRelStatus.destroy(
             {where: {id: req.params.id}}
         )
         if(response){// encontrou e excluiu
