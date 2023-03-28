@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: 'id',
         as: 'customer'
       })
+      this.belongsTo(models.Tag,{
+        foreignKey:'tag_id',
+        targetKey: 'id',
+        as: 'tag'
+      })
     }
   }
   CustomerTag.init({

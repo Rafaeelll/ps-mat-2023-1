@@ -13,3 +13,6 @@ npx sequelize-cli migration:generate --name alter-table-customer-tags
 git add .
 git commit -m
 git push
+
+Relação (1,n) sempre sera HasMany para 1 e belongsTo para N
+Relação (N, N) sera belongsToMany e belongsToMany

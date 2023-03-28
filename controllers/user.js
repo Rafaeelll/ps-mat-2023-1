@@ -24,7 +24,11 @@ controller.create = async (req, res) =>{
 }
 controller.retrieve = async (req, res)=>{
     try{
-        const data = await User.findAll()
+        const data = await User.findAll({
+            include: [
+                {model: OrderRelStatus, as: 'order_rel_statuses'}
+            ]
+        })
         res.send(data)
 
     }
