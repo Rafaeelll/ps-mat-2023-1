@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsToMany(models.Tag,{
-        through: 'order_tags',   //tabela intermediaria
-        foreignKey: 'order_id',  // chave estrangeira da tabela intermediaria
+        through: 'order_tags',      //tabela intermediaria
+        foreignKey: 'order_id',     // chave estrangeira da tabela intermediaria
         otherKey: 'tag_id',         // outra chave da tabela intermediaria
         as: 'tags'                  // nome do campo de associação (plural)
       })
@@ -25,7 +25,31 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: 'user_id',             // outra chave da tabela intermediaria
         as: 'order_statuses'             // nome do campo de associação (plural)
       })
-      
+      this.belongsTo(models.Carrier,{
+        foreignKey: 'carrier_id', // Nome do campo na tabela de ORIGEM
+        targetKey: 'id',          // Nome do campo na tabela de DESTINO
+        as: 'carrier'             // Nome do atributo para exibição
+      })
+      this.belongsTo(models.Customer,{
+        foreignKey: 'customer_id', // Nome do campo na tabela de ORIGEM
+        targetKey: 'id',           // Nome do campo na tabela de DESTINO
+        as: 'customer'             // Nome do atributo para exibição
+      })
+      this.belongsTo(models.Channel,{
+        foreignKey: 'channel_id', // Nome do campo na tabela de ORIGEM
+        targetKey: 'id',          // Nome do campo na tabela de DESTINO
+        as: 'channel'             // Nome do atributo para exibição
+      })
+      this.belongsTo(models.ShipmentPriority,{
+        foreignKey: 'shipment_priority_id', // Nome do campo na tabela de ORIGEM
+        targetKey: 'id',                    // Nome do campo na tabela de DESTINO
+        as: 'shipment_priority'           // Nome do atributo para exibição
+      })
+      this.belongsTo(models.PaymentMethod,{
+        foreignKey: 'payment_method_id', // Nome do campo na tabela de ORIGEM
+        targetKey: 'id',                    // Nome do campo na tabela de DESTINO
+        as: 'payment_method'           // Nome do atributo para exibição
+      })
     }
   }
   Order.init({

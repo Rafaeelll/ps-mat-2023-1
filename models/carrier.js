@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Order,{
+        foreignKey: 'carrier_id', // Campo da tabela estrangeira
+        sourceKey: 'id',          // Campo da tabela local 
+        as: 'orders'            // Nome do campo de associação (plural)
+      })
     }
   }
   Carrier.init({

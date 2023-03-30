@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Users,{
+      this.belongsTo(models.User,{
         foreignKey: 'user_id', // Nome do campo na tabela de ORIGEM
         targetKey: 'id',       // Nome do campo na tabela de DESTINO
         as: 'user'             // Nome do atributo para exibição

@@ -1,5 +1,5 @@
 // importar o model correspondente ao controller
-const {User} = require('../models')
+const {User, OrderRelStatus} = require('../models')
 
 const controller = {} // objeto vazio
 
