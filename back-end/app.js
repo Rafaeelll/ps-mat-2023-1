@@ -74,4 +74,10 @@ app.use('/order_status', orderStatus)
 
 const orders = require('./routes/orders')
 app.use('/orders', orders)
+
+const suppliers = require('./routes/suppliers')
+app.use('/suppliers', suppliers)
+
+const products = require('./routes/products')
+app.use('/products', products)
 module.exports = app;
