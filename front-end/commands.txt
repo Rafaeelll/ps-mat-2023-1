@@ -1,7 +1,0 @@
-Criar um novo projeto front-end
-
-npx create-react-app front-end
-cd front-end
-npm start
-
-npm i react-router-dom
