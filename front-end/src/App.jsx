@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <HeaderBar/>
-      <Box sx={{ml:'25px', mr:'25px'}}>
+      <Box sx={{ m: '25px auto' }}>
         <Routes>
         <Route path ="/" element={<Home/>} />
         <Route path= "/login" element={<Login/>}/>
