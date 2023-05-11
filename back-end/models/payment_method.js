@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(30),
       allowNull: false
     },
+    operator_fee: {
+      type: DataTypes.DECIMAL(18, 2)
+    },
   }, {
     sequelize,
     modelName: 'PaymentMethod',

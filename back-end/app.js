@@ -12,7 +12,11 @@ var usersRouter = require('./routes/users');
 
 var app = express();
  // conecta ao BD
+ // Acessar o back-end
+ const cors = require('cors')
+ app.use(cors())
 
+ //conexão ao BD
  const db = require('./models')
 
  try {
