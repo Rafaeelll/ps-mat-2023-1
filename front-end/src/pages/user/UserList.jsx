@@ -16,12 +16,12 @@ import Button from '@mui/material/Button';
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 
-export default function PaymentMethodList() {
+export default function ChannelList() {
 
-  const API_PATH = '/payment_methods'
+  const API_PATH = '/users'
 
   const [state, setState] = React.useState({
-    paymentMethods: [],
+    users: [],
     showWaiting: false,
     showDialog: false,
     deleteId: null,
@@ -32,7 +32,7 @@ export default function PaymentMethodList() {
     }
   })
   const {
-    paymentMethods,
+    users,
     showWaiting,
     showDialog,
     deleteId,
@@ -45,7 +45,7 @@ export default function PaymentMethodList() {
       const result = await myfetch.get(API_PATH)
       setState({ 
         ...state, 
-        paymentMethods: result, 
+        users: result, 
         showWaiting: false,
         showDialog: false
       })
@@ -67,14 +67,34 @@ export default function PaymentMethodList() {
   const columns = [
     { field: 'id', headerName: 'Cód.', width: 90 },
     {
-      field: 'description',
-      headerName: 'Descrição',
+      field: 'name',
+      headerName: 'Nome',
       width: 150
     },
     {
-      field: 'operator_fee',
-      headerName: 'Taxa de operação',
-      width: 150
+        field: 'email',
+        headerName: 'Email',
+        width: 150
+    },
+    {
+        field: 'verified_email',
+        headerName: 'Verificação de email',
+        width: 150
+    },
+    {
+        field: 'is_admin',
+        headerName: 'Administrador',
+        width: 150
+    },
+    {
+        field: 'phone',
+        headerName: 'Telefone',
+        width: 150
+    },
+    {
+        field: 'password',
+        headerName: 'Senha',
+        width: 150
     },
     {
       field: 'edit',
@@ -180,7 +200,7 @@ export default function PaymentMethodList() {
         {notif.message}
       </Notification>
 
-      <PageTitle title="Listagem de métodos de pagamento"  />
+      <PageTitle title="Listagem de usuários"/>
 
       <Box sx={{
         display: "flex",
@@ -201,7 +221,7 @@ export default function PaymentMethodList() {
 
       <Paper elevation={4} sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={paymentMethods}
+          rows={users}
           columns={columns}
           initialState={{
             pagination: {

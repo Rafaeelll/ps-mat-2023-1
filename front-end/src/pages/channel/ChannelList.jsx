@@ -16,12 +16,12 @@ import Button from '@mui/material/Button';
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 
-export default function PaymentMethodList() {
+export default function ChannelList() {
 
-  const API_PATH = '/payment_methods'
+  const API_PATH = '/channels'
 
   const [state, setState] = React.useState({
-    paymentMethods: [],
+    channels: [],
     showWaiting: false,
     showDialog: false,
     deleteId: null,
@@ -32,7 +32,7 @@ export default function PaymentMethodList() {
     }
   })
   const {
-    paymentMethods,
+    channels,
     showWaiting,
     showDialog,
     deleteId,
@@ -45,7 +45,7 @@ export default function PaymentMethodList() {
       const result = await myfetch.get(API_PATH)
       setState({ 
         ...state, 
-        paymentMethods: result, 
+        channels: result, 
         showWaiting: false,
         showDialog: false
       })
@@ -72,7 +72,7 @@ export default function PaymentMethodList() {
       width: 150
     },
     {
-      field: 'operator_fee',
+      field: 'commission_fee',
       headerName: 'Taxa de operação',
       width: 150
     },
@@ -180,7 +180,7 @@ export default function PaymentMethodList() {
         {notif.message}
       </Notification>
 
-      <PageTitle title="Listagem de métodos de pagamento"  />
+      <PageTitle title="Listagem de canais"/>
 
       <Box sx={{
         display: "flex",
@@ -201,7 +201,7 @@ export default function PaymentMethodList() {
 
       <Paper elevation={4} sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={paymentMethods}
+          rows={channels}
           columns={columns}
           initialState={{
             pagination: {

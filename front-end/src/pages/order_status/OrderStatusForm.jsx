@@ -8,18 +8,18 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Notification from '../../components/ui/Notification'
 import { useNavigate } from 'react-router-dom'
-import PaymentMethod from '../../models/PaymentMethod'
+import OrderStatus from '../../models/OrderStatus'
 import getValidationMessages from '../../utils/getValidationMessages'
 
-export default function PaymentMethodForm() {
-  const API_PATH = '/payment_methods'
+export default function OrderStatusForm() {
+  const API_PATH = '/order_status'
 
   const navigate = useNavigate()
 
   const [state, setState] = React.useState({
-    paymentMethod: {
-      description: '',
-      operator_fee: ''
+    orderStatus: {
+      sequence: '',
+      description: ''
     },
     errors: {},
     showWaiting: false,
@@ -30,16 +30,16 @@ export default function PaymentMethodForm() {
     }
   })
   const {
-    paymentMethod,
+    orderStatus,
     errors,
     showWaiting,
     notif
   } = state
 
   function handleFormFieldChange(event) {
-    const paymentMethodCopy = {...paymentMethod}
-    paymentMethodCopy[event.target.name] = event.target.value
-    setState({...state, paymentMethod: paymentMethodCopy})
+    const orderStatusCopy = {...orderStatus}
+    orderStatusCopy[event.target.name] = event.target.value
+    setState({...state, orderStatus: orderStatusCopy})
   }
 
   function handleFormSubmit(event) {
@@ -53,9 +53,9 @@ export default function PaymentMethodForm() {
     try {
       
       // Chama a validação da biblioteca Joi
-      await PaymentMethod.validateAsync(paymentMethod, { abortEarly: false })
+      await OrderStatus.validateAsync(orderStatus, { abortEarly: false })
 
-      await myfetch.post(API_PATH, paymentMethod)
+      await myfetch.post(API_PATH, orderStatus)
       setState({
         ...state, 
         showWaiting: false,
@@ -112,36 +112,34 @@ export default function PaymentMethodForm() {
         {notif.message}
       </Notification>
       
-      <PageTitle title="Cadastrar novo método de pagamento" />
+      <PageTitle title="Cadastrar novo status de pedido" />
 
       <div>{notif.severity}</div>
 
       <form onSubmit={handleFormSubmit}>
+      <TextField 
+          label="Sequência" 
+          variant="filled"
+          type="number"
+          fullWidth
+          required
+          name="sequence"  // Nome do campo na tabela
+          value={orderStatus.sequence}   // Nome do campo na tabela
+          onChange={handleFormFieldChange}
+          error={errors?.sequence}
+          helperText={errors?.sequence}
+        />
         <TextField 
           label="Descrição" 
           variant="filled"
           fullWidth
           required
           name="description"  // Nome do campo na tabela
-          value={paymentMethod.description}   // Nome do campo na tabela
+          value={orderStatus.description}   // Nome do campo na tabela
           onChange={handleFormFieldChange}
           error={errors?.description}
           helperText={errors?.description}
         />
-
-        <TextField 
-          label="Taxa de operação" 
-          variant="filled"
-          type="number"
-          fullWidth
-          required
-          name="operator_fee"  // Nome do campo na tabela
-          value={paymentMethod.operator_fee}   // Nome do campo na tabela
-          onChange={handleFormFieldChange}
-          error={errors?.operator_fee}
-          helperText={errors?.operator_fee}
-        />
-
         <Fab 
           variant="extended" 
           color="secondary"

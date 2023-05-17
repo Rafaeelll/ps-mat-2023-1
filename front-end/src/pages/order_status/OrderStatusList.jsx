@@ -16,12 +16,12 @@ import Button from '@mui/material/Button';
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 
-export default function PaymentMethodList() {
+export default function OrderStatusList() {
 
-  const API_PATH = '/payment_methods'
+  const API_PATH = '/order_status'
 
   const [state, setState] = React.useState({
-    paymentMethods: [],
+    orderStatus: [],
     showWaiting: false,
     showDialog: false,
     deleteId: null,
@@ -32,7 +32,7 @@ export default function PaymentMethodList() {
     }
   })
   const {
-    paymentMethods,
+    orderStatus,
     showWaiting,
     showDialog,
     deleteId,
@@ -45,7 +45,7 @@ export default function PaymentMethodList() {
       const result = await myfetch.get(API_PATH)
       setState({ 
         ...state, 
-        paymentMethods: result, 
+        orderStatus: result, 
         showWaiting: false,
         showDialog: false
       })
@@ -66,14 +66,15 @@ export default function PaymentMethodList() {
 
   const columns = [
     { field: 'id', headerName: 'Cód.', width: 90 },
+
+    {
+        field: 'sequence',
+        headerName: 'Sequência',
+        width: 150
+    },
     {
       field: 'description',
       headerName: 'Descrição',
-      width: 150
-    },
-    {
-      field: 'operator_fee',
-      headerName: 'Taxa de operação',
       width: 150
     },
     {
@@ -180,7 +181,7 @@ export default function PaymentMethodList() {
         {notif.message}
       </Notification>
 
-      <PageTitle title="Listagem de métodos de pagamento"  />
+      <PageTitle title="Listagem status de pedidos"/>
 
       <Box sx={{
         display: "flex",
@@ -201,7 +202,7 @@ export default function PaymentMethodList() {
 
       <Paper elevation={4} sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={paymentMethods}
+          rows={orderStatus}
           columns={columns}
           initialState={{
             pagination: {

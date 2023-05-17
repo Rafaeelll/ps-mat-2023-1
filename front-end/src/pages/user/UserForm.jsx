@@ -8,18 +8,22 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Notification from '../../components/ui/Notification'
 import { useNavigate } from 'react-router-dom'
-import PaymentMethod from '../../models/PaymentMethod'
+import User from '../../models/User'
 import getValidationMessages from '../../utils/getValidationMessages'
 
-export default function PaymentMethodForm() {
-  const API_PATH = '/payment_methods'
+export default function UserForm() {
+  const API_PATH = '/users'
 
   const navigate = useNavigate()
 
   const [state, setState] = React.useState({
-    paymentMethod: {
-      description: '',
-      operator_fee: ''
+    user: {
+      name: '',
+      email: '',
+      verified_email: '',
+      is_admin: '',
+      phone: '',
+      password: ''
     },
     errors: {},
     showWaiting: false,
@@ -30,16 +34,16 @@ export default function PaymentMethodForm() {
     }
   })
   const {
-    paymentMethod,
+    user,
     errors,
     showWaiting,
     notif
   } = state
 
   function handleFormFieldChange(event) {
-    const paymentMethodCopy = {...paymentMethod}
-    paymentMethodCopy[event.target.name] = event.target.value
-    setState({...state, paymentMethod: paymentMethodCopy})
+    const userCopy = {...user}
+    userCopy[event.target.name] = event.target.value
+    setState({...state, user: userCopy})
   }
 
   function handleFormSubmit(event) {
@@ -53,9 +57,9 @@ export default function PaymentMethodForm() {
     try {
       
       // Chama a validação da biblioteca Joi
-      await PaymentMethod.validateAsync(paymentMethod, { abortEarly: false })
+      await User.validateAsync(user, { abortEarly: false })
 
-      await myfetch.post(API_PATH, paymentMethod)
+      await myfetch.post(API_PATH, user)
       setState({
         ...state, 
         showWaiting: false,
@@ -112,36 +116,77 @@ export default function PaymentMethodForm() {
         {notif.message}
       </Notification>
       
-      <PageTitle title="Cadastrar novo método de pagamento" />
+      <PageTitle title="Cadastrar novo usuário" />
 
       <div>{notif.severity}</div>
 
       <form onSubmit={handleFormSubmit}>
         <TextField 
-          label="Descrição" 
+          label="Nome" 
           variant="filled"
           fullWidth
           required
-          name="description"  // Nome do campo na tabela
-          value={paymentMethod.description}   // Nome do campo na tabela
+          name="name"  // Nome do campo na tabela
+          value={user.name}   // Nome do campo na tabela
           onChange={handleFormFieldChange}
-          error={errors?.description}
-          helperText={errors?.description}
+          error={errors?.name}
+          helperText={errors?.name}
         />
-
         <TextField 
-          label="Taxa de operação" 
+          label="Email" 
           variant="filled"
-          type="number"
           fullWidth
           required
-          name="operator_fee"  // Nome do campo na tabela
-          value={paymentMethod.operator_fee}   // Nome do campo na tabela
+          name="email"  // Nome do campo na tabela
+          value={user.email}   // Nome do campo na tabela
           onChange={handleFormFieldChange}
-          error={errors?.operator_fee}
-          helperText={errors?.operator_fee}
+          error={errors?.email}
+          helperText={errors?.email}
         />
-
+        
+        <TextField 
+          label="Verificação de email" 
+          variant="filled"
+          fullWidth
+          required
+          name="verified_email"  // Nome do campo na tabela
+          value={user.verified_email}   // Nome do campo na tabela
+          onChange={handleFormFieldChange}
+          error={errors?.verified_email}
+          helperText={errors?.verified_email}
+        />
+        <TextField 
+          label="Administrador" 
+          variant="filled"
+          fullWidth
+          required
+          name="is_admin"  // Nome do campo na tabela
+          value={user.is_admin}   // Nome do campo na tabela
+          onChange={handleFormFieldChange}
+          error={errors?.is_admin}
+          helperText={errors?.is_admin}
+        />
+        <TextField 
+          label="Telefone" 
+          variant="filled"
+          fullWidth
+          name="phone"  // Nome do campo na tabela
+          value={user.phone}   // Nome do campo na tabela
+          onChange={handleFormFieldChange}
+          error={errors?.phone}
+          helperText={errors?.phone}
+        />
+        <TextField 
+          label="Senha" 
+          variant="filled"
+          fullWidth
+          required
+          name="password"  // Nome do campo na tabela
+          value={user.password}   // Nome do campo na tabela
+          onChange={handleFormFieldChange}
+          error={errors?.password}
+          helperText={errors?.password}
+        />
         <Fab 
           variant="extended" 
           color="secondary"

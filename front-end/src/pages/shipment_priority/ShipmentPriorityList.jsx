@@ -16,12 +16,12 @@ import Button from '@mui/material/Button';
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 
-export default function PaymentMethodList() {
+export default function ChannelList() {
 
-  const API_PATH = '/payment_methods'
+  const API_PATH = '/shipment_priorities'
 
   const [state, setState] = React.useState({
-    paymentMethods: [],
+    shipmentPriorities: [],
     showWaiting: false,
     showDialog: false,
     deleteId: null,
@@ -32,7 +32,7 @@ export default function PaymentMethodList() {
     }
   })
   const {
-    paymentMethods,
+    shipmentPriorities,
     showWaiting,
     showDialog,
     deleteId,
@@ -45,7 +45,7 @@ export default function PaymentMethodList() {
       const result = await myfetch.get(API_PATH)
       setState({ 
         ...state, 
-        paymentMethods: result, 
+        shipmentPriorities: result, 
         showWaiting: false,
         showDialog: false
       })
@@ -69,11 +69,6 @@ export default function PaymentMethodList() {
     {
       field: 'description',
       headerName: 'Descrição',
-      width: 150
-    },
-    {
-      field: 'operator_fee',
-      headerName: 'Taxa de operação',
       width: 150
     },
     {
@@ -180,7 +175,7 @@ export default function PaymentMethodList() {
         {notif.message}
       </Notification>
 
-      <PageTitle title="Listagem de métodos de pagamento"  />
+      <PageTitle title="Listagem prioridades de envios"/>
 
       <Box sx={{
         display: "flex",
@@ -201,7 +196,7 @@ export default function PaymentMethodList() {
 
       <Paper elevation={4} sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={paymentMethods}
+          rows={shipmentPriorities}
           columns={columns}
           initialState={{
             pagination: {
