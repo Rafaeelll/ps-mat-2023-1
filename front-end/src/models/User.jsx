@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import Joi, { required } from 'joi'
 
 const User = Joi.object({
     name: Joi.string()
@@ -20,6 +20,16 @@ const User = Joi.object({
         .min(6)
         .max(200)
         .required()
-        .messages({'*': 'A senha é obrigatório (entre 6 e 200 caracteres).'})
+        .messages({'*': 'A senha é obrigatório (entre 6 e 200 caracteres).'}),
+    verified_email: Joi.string()
+        .min(4)
+        .max(5)
+        .required()
+        .messages({'*': 'Este campo é obrigatorio (entre 4 e 5 caracteres)'}),
+    is_admin: Joi.string()
+    .min(4)
+    .max(5)
+    .required()
+    .messages({'*': 'Este campo é obrigatorio (entre 4 e 5 caracteres)'})
 })
 export default User
