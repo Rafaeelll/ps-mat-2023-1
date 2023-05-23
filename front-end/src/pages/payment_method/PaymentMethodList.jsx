@@ -9,15 +9,13 @@ import IconButton from '@mui/material/IconButton'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import ConfirmDialog from '../../components/ui/ConfirmDialog'
-import Notification from '../../components/ui/Notification';
-import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
+import Notification from '../../components/ui/Notification'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import { Link } from 'react-router-dom'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
-
 export default function PaymentMethodList() {
-
   const API_PATH = '/payment_methods'
 
   const [state, setState] = React.useState({
@@ -83,9 +81,11 @@ export default function PaymentMethodList() {
       align: 'center',
       width: 90,
       renderCell: params => (
-        <IconButton aria-label="Editar">
-          <EditIcon />
-        </IconButton>
+        <Link to={'./' + params.id}>
+          <IconButton aria-label="Editar">
+            <EditIcon />
+          </IconButton>
+        </Link>
       )
     },
     {
@@ -119,7 +119,7 @@ export default function PaymentMethodList() {
           ...state,
           showWaiting: false,   // esconde o backdrop
           showDialog: false,    // esconde o diálogo de confirmação
-          notif: {              // exibe a snackbar
+          snack: {              // exibe a snackbar
             show: true,
             message: 'Item excluído com sucesso',
             severity: 'success'
@@ -134,7 +134,7 @@ export default function PaymentMethodList() {
           ...state,
           showWaiting: false,   // esconde o backdrop
           showDialog: false,    // esconde o diálogo de confirmação
-          notif: {              // exibe a snackbar
+          snack: {              // exibe a snackbar
             show: true,
             message: 'ERRO: ' + error.message,
             severity: 'error'
@@ -173,9 +173,9 @@ export default function PaymentMethodList() {
       </ConfirmDialog>
 
       <Notification 
-        show={notif.show} 
-        onClose={handleNotifClose}
+        show={notif.show}
         severity={notif.severity}
+        onClose={handleNotifClose}
       >
         {notif.message}
       </Notification>
@@ -188,13 +188,13 @@ export default function PaymentMethodList() {
         marginBottom: "25px"
       }}>
         <Link to="new">
-          <Button
-          variant="contained"
-          size="large"
-          color="secondary"
-          startIcon={<AddCircleIcon/>}
+          <Button 
+            variant="contained" 
+            size="large" 
+            color="secondary"
+            startIcon={<AddCircleIcon />}
           >
-          Cadastrar novo
+            Cadastrar novo
           </Button>
         </Link>
       </Box>

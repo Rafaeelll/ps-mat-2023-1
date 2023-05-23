@@ -48,6 +48,7 @@ function App() {
           <Route path='/tag/new' element={<AuthGuard> <TagForm/> </AuthGuard>}/>
           <Route path='/order_status' element={<AuthGuard> <OrderStatusList/> </AuthGuard>}/>
           <Route path='/order_status/new' element={<AuthGuard> <OrderStatusForm/> </AuthGuard>}/>
+          <Route path="/payment_method/:id" element={ <AuthGuard> <PaymentMethodForm /> </AuthGuard> }/>
         </Routes>
       </Box>
     </BrowserRouter>

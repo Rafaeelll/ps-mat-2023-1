@@ -27,9 +27,9 @@ const User = Joi.object({
         .required()
         .messages({'*': 'Este campo é obrigatorio (entre 4 e 5 caracteres)'}),
     is_admin: Joi.string()
-    .min(4)
-    .max(5)
-    .required()
-    .messages({'*': 'Este campo é obrigatorio (entre 4 e 5 caracteres)'})
+        .min(4)
+        .max(5)
+        .required()
+        .messages({'*': 'Este campo é obrigatorio (entre 4 e 5 caracteres).'})
 })
 export default User

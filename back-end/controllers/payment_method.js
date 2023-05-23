@@ -25,7 +25,8 @@ controller.create = async (req, res) =>{
 controller.retrieve = async (req, res)=>{
     try{
         const data = await PaymentMethod.findAll({
-            include: {model: Order, as: 'orders'}
+            include: {model: Order, as: 'orders'},
+            order: [['description', 'asc']]
         })
         res.send(data)
 
