@@ -78,9 +78,11 @@ export default function ChannelList() {
       align: 'center',
       width: 90,
       renderCell: params => (
-        <IconButton aria-label="Editar">
-          <EditIcon />
-        </IconButton>
+        <Link to={'./' + params.id}>
+          <IconButton aria-label="Editar">
+            <EditIcon />
+          </IconButton>
+        </Link>
       )
     },
     {
@@ -175,7 +177,7 @@ export default function ChannelList() {
         {notif.message}
       </Notification>
 
-      <PageTitle title="Listagem de transportadoras"/>
+      <PageTitle title="Listagem de transportadorassss"/>
 
       <Box sx={{
         display: "flex",

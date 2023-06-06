@@ -5,11 +5,13 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
+import Notification from '../components/ui/Notification'
 import myfetch from '../utils/myfetch'
 import PageTitle from '../components/ui/PageTitle'
-import Notification from '../components/ui/Notification'
+import {useNavigate } from 'react-router-dom'
 
-export default function Login() {
+export default function Login({ onLoginLogout }) {
+  const navigate = useNavigate()
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -41,6 +43,8 @@ export default function Login() {
         severity: 'success'
       })
 
+      onLoginLogout(true)
+      navigate('/')
     }
     catch(error) {
       console.error(error)
@@ -77,9 +81,9 @@ export default function Login() {
       </Backdrop>
 
       <Notification 
-        show={notif.show} 
-        onClose={handleNotifClose}
+        show={notif.show}
         severity={notif.severity}
+        onClose={handleNotifClose}
       >
         {notif.message}
       </Notification>

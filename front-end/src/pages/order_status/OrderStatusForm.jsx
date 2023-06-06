@@ -7,7 +7,7 @@ import myfetch from '../../utils/myfetch'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Notification from '../../components/ui/Notification'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import OrderStatus from '../../models/OrderStatus'
 import getValidationMessages from '../../utils/getValidationMessages'
 
@@ -15,6 +15,7 @@ export default function OrderStatusForm() {
   const API_PATH = '/order_status'
 
   const navigate = useNavigate()
+  const params = useParams()
 
   const [state, setState] = React.useState({
     orderStatus: {
@@ -48,6 +49,35 @@ export default function OrderStatusForm() {
     sendData()
   }
 
+  React.useEffect(()=>{
+    if(params.id) fetchData()
+  },[])
+
+  async function fetchData(){
+    setState({...state, showWaiting: true, errors:{}})
+    try{
+      const result = await myfetch.get(`${API_PATH}/${params.id}`)
+      setState({
+        ...state,
+        orderStatus: result,
+        showWaiting: false
+      })
+    }
+    catch(error){
+      console.error(error)
+      setState({
+        ...state,
+        showWaiting: false,
+        errors: errorMessages,
+        notif:{
+          severity: 'error',
+          show: true,
+          message: 'ERRO: ' + error.message
+        }
+      })
+    }
+  }
+
   async function sendData() {
     setState({...state, showWaiting: true, errors: {}})
     try {
@@ -55,14 +85,17 @@ export default function OrderStatusForm() {
       // Chama a validação da biblioteca Joi
       await OrderStatus.validateAsync(orderStatus, { abortEarly: false })
 
-      await myfetch.post(API_PATH, orderStatus)
+      if (params.id) await myfetch.put(`${API_PATH}/${params.id}`, orderStatus)
+      
+      // Registro não existe: chama POST para criar
+      else await myfetch.post(API_PATH, orderStatus)
       setState({
         ...state, 
         showWaiting: false,
         notif: {
           severity: 'success',
           show: true,
-          message: 'Novo item salvo com sucesso'
+          message: 'Item salvo com sucesso'
         }
       })
     }
@@ -112,8 +145,9 @@ export default function OrderStatusForm() {
         {notif.message}
       </Notification>
       
-      <PageTitle title="Cadastrar novo status de pedido" />
-
+      <PageTitle 
+        title={params.id ? "Editar status do pedido" : "Cadastrar novo status de pedidos"} 
+        />
       <div>{notif.severity}</div>
 
       <form onSubmit={handleFormSubmit}>

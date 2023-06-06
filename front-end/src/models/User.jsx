@@ -32,4 +32,5 @@ const User = Joi.object({
         .required()
         .messages({'*': 'Este campo é obrigatorio (entre 4 e 5 caracteres).'})
 })
+.options({allowUnknown: true})
 export default User

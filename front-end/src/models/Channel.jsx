@@ -11,6 +11,7 @@ const Channel = Joi.object({
         .max(100)
         .required()
         .messages({'*': 'A taxa de comissão deve ser informada (entre 0 a 100).'})
-
 })
+// Permite campos não validados, como id, createdAt e updatedAt
+.options({allowUnknown: true})
 export default Channel

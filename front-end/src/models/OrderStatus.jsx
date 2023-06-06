@@ -14,4 +14,5 @@ const OrderStatus = Joi.object({
         .messages({'*': 'A descrição é obrigatória (entre 2 e 30 caracteres).'}),
 
 })
+.options({allowUnknown: true})
 export default OrderStatus
