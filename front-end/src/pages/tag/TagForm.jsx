@@ -7,12 +7,13 @@ import myfetch from '../../utils/myfetch'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Notification from '../../components/ui/Notification'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Tag from '../../models/Tag'
 import getValidationMessages from '../../utils/getValidationMessages'
 
 export default function TagForm() {
-  const API_PATH = '/tags'
+  const API_PATH = '/tag'
+  const params = useParams()
 
   const navigate = useNavigate()
 
@@ -48,7 +49,34 @@ export default function TagForm() {
     // Envia os dados para o back-end
     sendData()
   }
+  React.useEffect(()=>{
+    if(params.id) fetchData()
+  },[])
 
+  async function fetchData(){
+    setState({...state, showWaiting: true, errors:{}})
+    try{
+      const result = await myfetch.get(`${API_PATH}/${params.id}`)
+      setState({
+        ...state,
+        tag: result,
+        showWaiting: false
+      })
+    }
+    catch(error){
+      console.error(error)
+      setState({
+        ...state,
+        showWaiting: false,
+        errors: errorMessages,
+        notif:{
+          severity: 'error',
+          show: true,
+          message: 'ERRO: ' + error.message
+        }
+      })
+    }
+  }
   async function sendData() {
     setState({...state, showWaiting: true, errors: {}})
     try {
@@ -56,14 +84,17 @@ export default function TagForm() {
       // Chama a validação da biblioteca Joi
       await Tag.validateAsync(tag, { abortEarly: false })
 
-      await myfetch.post(API_PATH, tag)
+      if (params.id) await myfetch.put(`${API_PATH}/${params.id}`, tag)
+      
+      // Registro não existe: chama POST para criar
+      else await myfetch.post(API_PATH, tag)      
       setState({
         ...state, 
         showWaiting: false,
         notif: {
           severity: 'success',
           show: true,
-          message: 'Novo item salvo com sucesso'
+          message: 'Item salvo com sucesso'
         }
       })
     }
@@ -113,8 +144,9 @@ export default function TagForm() {
         {notif.message}
       </Notification>
       
-      <PageTitle title="Cadastrar nova etiqueta" />
-
+      <PageTitle 
+        title={params.id ? "Editar etiqueta" : "Cadastrar nova etiqueta"} 
+        />
       <div>{notif.severity}</div>
 
       <form onSubmit={handleFormSubmit}>

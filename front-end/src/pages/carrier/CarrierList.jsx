@@ -177,7 +177,7 @@ export default function ChannelList() {
         {notif.message}
       </Notification>
 
-      <PageTitle title="Listagem de transportadorassss"/>
+      <PageTitle title="Listagem de transportadoras"/>
 
       <Box sx={{
         display: "flex",
