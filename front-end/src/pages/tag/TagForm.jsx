@@ -12,7 +12,7 @@ import Tag from '../../models/Tag'
 import getValidationMessages from '../../utils/getValidationMessages'
 
 export default function TagForm() {
-  const API_PATH = '/tag'
+  const API_PATH = '/tags'
   const params = useParams()
 
   const navigate = useNavigate()
